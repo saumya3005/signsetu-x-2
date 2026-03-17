@@ -82,22 +82,22 @@ export default function Home() {
             <DeveloperCard
               name="Ayush Tiwari"
               role="AI Developer"
-              img="https://i.pravatar.cc/150?img=11"
+              img="https://i.postimg.cc/Nfh3bbdn/ayushsignsetu.jpg"
             />
             <DeveloperCard
               name="Saumya Agrahari"
               role="Frontend Developer"
-              img="https://i.pravatar.cc/150?img=12"
+              img="https://i.postimg.cc/Hkv3vkpp/somi1.jpg"
             />
             <DeveloperCard
               name="Unnati Kesarwani"
               role="Backend Developer"
-              img="https://i.pravatar.cc/150?img=13"
+              img="https://i.postimg.cc/htmbsb5F/badtameez.jpg"
             />
             <DeveloperCard
               name="Anshuman Rai"
               role="UI/UX Designer"
-              img="https://i.pravatar.cc/150?img=14"
+              img="https://i.postimg.cc/BbdPPR3z/hanger.jpg"
             />
           </div>
         </div>
