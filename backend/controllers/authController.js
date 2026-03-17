@@ -53,6 +53,11 @@ error:error.message
 // LOGIN
 
 exports.login = async (req,res)=>{
+const token = jwt.sign(
+  { id: user._id },
+  process.env.JWT_SECRET,
+  { expiresIn: "71" }
+);
 
 try{
 
@@ -81,12 +86,6 @@ message:"Invalid credentials"
 })
 }
 
-// ✅ TOKEN GENERATE
-const token = jwt.sign(
-  { id: user._id },
-  "secretkey",
-  { expiresIn: "1d" }
-)
 
 res.json({
   message:"Login successful",
