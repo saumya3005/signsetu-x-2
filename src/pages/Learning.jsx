@@ -8,12 +8,6 @@ export default function Learning() {
   const [isPracticing, setIsPracticing] = useState(false);
   const [practiceStatus, setPracticeStatus] = useState('waiting'); // waiting, correct, retry
 
-  const lessonVideos = {
-    "Alphabet Mastery": "https://www.youtube.com/embed/6_gXiBe9y9A?si=TNSFy6e8ptDd3wXN",
-    "Numbers 1-100": "https://www.youtube.com/embed/Y4stD_ypaAI?si=9lCN94tugJrKnMtL",
-    "Basic Colors": "https://www.youtube.com/embed/U9KnRdcWL7Y?si=u4WAd52uZpAp_9aq&start=21"
-  };
-
   // Simulate Practice AI Feedback
   useEffect(() => {
     if (!isPracticing) {
@@ -27,10 +21,10 @@ export default function Learning() {
 
   return (
     <div className="learning-page" style={{ padding: '1rem' }}>
-
+      
       {/* Top Banner */}
-      <motion.div
-        className="glass-card"
+      <motion.div 
+        className="glass-card" 
         style={{ padding: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', background: 'var(--color-primary)', color: '#FFF' }}
         initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
       >
@@ -76,17 +70,17 @@ export default function Learning() {
               <div style={{ position: 'absolute', bottom: '1rem', left: '1rem', color: '#FFF', fontWeight: 600 }}>Instructor Demo: "Thank You"</div>
             </div>
           </div>
-
+          
           {/* AI Practice Sandbox View */}
           <div className="glass-card" style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: '1.5rem' }}>
             <h3>Your Turn</h3>
             <p style={{ color: 'var(--color-text-muted)', marginBottom: '1rem' }}>Replicate the gesture for "Thank You" to pass.</p>
             <div style={{ flex: 1, background: '#1c1c1e', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-              <img src="https://i.pravatar.cc/150?img=11" alt="User Camera Feedback" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.5, borderRadius: '12px' }} />
-              <div style={{ position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <CheckCircle size={48} color="#00FF88" />
-                <span style={{ color: '#00FF88', fontWeight: 'bold', marginTop: '0.5rem', background: 'rgba(0,0,0,0.5)', padding: '4px 12px', borderRadius: '20px' }}>Excellent!</span>
-              </div>
+               <img src="https://i.pravatar.cc/150?img=11" alt="User Camera Feedback" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.5, borderRadius: '12px' }} />
+               <div style={{ position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                 <CheckCircle size={48} color="#00FF88" />
+                 <span style={{ color: '#00FF88', fontWeight: 'bold', marginTop: '0.5rem', background: 'rgba(0,0,0,0.5)', padding: '4px 12px', borderRadius: '20px' }}>Excellent!</span>
+               </div>
             </div>
             <button className="btn btn-primary w-100">Next Gesture</button>
           </div>
@@ -97,121 +91,94 @@ export default function Learning() {
       <AnimatePresence>
         {activeVideo && (
           <div className="video-modal-overlay" onClick={() => { setActiveVideo(null); setIsPracticing(false); }}>
-            <motion.div
-              className="video-modal-content"
-              onClick={e => e.stopPropagation()}
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
+            <motion.div 
+              className="video-modal-content" 
+              onClick={e => e.stopPropagation()} 
+              initial={{ opacity: 0, y: 30, scale: 0.95 }} 
+              animate={{ opacity: 1, y: 0, scale: 1 }} 
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.3 }}
             >
-
+              
               <div style={{ display: 'flex', justifyContent: 'space-between', padding: '1.5rem', borderBottom: '1px solid var(--glass-border)' }}>
                 <div>
                   <h3 style={{ margin: '0 0 0.25rem 0' }}>{activeVideo}</h3>
                   <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Lesson 4 of 12 • Instructor Sarah Jenkins</span>
                 </div>
-                <button onClick={() => { setActiveVideo(null); setIsPracticing(false); }} style={{ background: 'none', cursor: 'pointer', color: 'var(--color-text-main)', border: 'none' }}><X size={24} className="hover-lift" /></button>
+                <button onClick={() => { setActiveVideo(null); setIsPracticing(false); }} style={{ background: 'none', cursor: 'pointer', color: 'var(--color-text-main)', border: 'none' }}><X size={24} className="hover-lift"/></button>
               </div>
 
-              <div
-                className="video-viewport"
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  aspectRatio: '16 / 9',
-                  background: '#000',
-                  overflow: 'hidden'
-                }}
-              >
-                {lessonVideos[activeVideo] ? (
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src={lessonVideos[activeVideo]}
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      width: '100%',
-                      height: '100%'
-                    }}
-                  />
-                ) : (
-                  <>
-                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=1000" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.5 }} />
-                    <PlayCircle size={64} color="#FFF" style={{ position: 'absolute' }} />
-
-                    <div className="video-controls">
-                      <div className="scrub-bar">
-                        <div className="scrub-fill"><div className="scrub-handle"></div></div>
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                          <Play size={20} fill="#FFF" />
-                          <SkipBack size={18} />
-                          <SkipForward size={18} />
-                          <Volume2 size={18} /> <span style={{ fontSize: '0.8rem' }}>02:14 / 12:45</span>
-                        </div>
-                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                          <Settings2 size={18} />
-                          <span style={{ fontSize: '0.85rem', fontWeight: 600, background: 'rgba(255,255,255,0.2)', padding: '2px 6px', borderRadius: '4px' }}>1x</span>
-                          <Maximize size={18} />
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                )}
+            <div className="video-viewport">
+              {/* Mock Video Feed */}
+              <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=1000" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.5 }} />
+              <PlayCircle size={64} color="#FFF" style={{ position: 'absolute' }} />
+              
+              <div className="video-controls">
+                <div className="scrub-bar">
+                   <div className="scrub-fill"><div className="scrub-handle"></div></div>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                    <Play size={20} fill="#FFF"/>
+                    <SkipBack size={18}/>
+                    <SkipForward size={18}/>
+                    <Volume2 size={18}/> <span style={{ fontSize: '0.8rem' }}>02:14 / 12:45</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                    <Settings2 size={18} />
+                    <span style={{ fontSize: '0.85rem', fontWeight: 600, background: 'rgba(255,255,255,0.2)', padding: '2px 6px', borderRadius: '4px' }}>1x</span>
+                    <Maximize size={18}/>
+                  </div>
+                </div>
               </div>
+            </div>
 
               <div style={{ padding: '2rem', display: 'flex', gap: '2rem' }}>
                 <div style={{ flex: 2 }}>
-                  <h4 style={{ marginBottom: '0.5rem' }}>Lesson Description</h4>
-                  <p style={{ color: 'var(--color-text-muted)', fontSize: '0.95rem', lineHeight: 1.6 }}>In this module, you will learn the fundamental gestures required for the {activeVideo} course. Pay close attention to the thumb positioning as demonstrated by the instructor. Watch the video fully before attempting the practice.</p>
+                   <h4 style={{ marginBottom: '0.5rem' }}>Lesson Description</h4>
+                   <p style={{ color: 'var(--color-text-muted)', fontSize: '0.95rem', lineHeight: 1.6 }}>In this module, you will learn the fundamental gestures required for the {activeVideo} course. Pay close attention to the thumb positioning as demonstrated by the instructor. Watch the video fully before attempting the practice.</p>
                 </div>
-
+                
                 <div style={{ flex: 1.5, background: 'rgba(0,0,0,0.03)', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>
-
-                  {!isPracticing ? (
-                    <>
-                      <h4 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Camera size={18} /> Practice Mode</h4>
-                      <ul style={{ paddingLeft: '1.25rem', marginBottom: '1.5rem', fontSize: '0.9rem', color: 'var(--color-text-muted)', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                        <li>Ensure your camera has good lighting</li>
-                        <li>Center your hands in the frame</li>
-                        <li>Mirror the instructor's stroke exactly</li>
-                      </ul>
-                      <button className="btn btn-primary w-100 glow-effect" onClick={() => setIsPracticing(true)}>Start Practice</button>
-                    </>
-                  ) : (
-                    <div style={{ position: 'relative', width: '100%', height: '180px', background: '#000', borderRadius: '12px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <img src="https://images.unsplash.com/photo-1543269866-487350d6f11e?auto=format&fit=crop&q=80&w=400" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.6 }} />
-
-                      <motion.div
-                        style={{ position: 'absolute', top: '1rem', right: '1rem', padding: '0.5rem 1rem', borderRadius: '50px', fontWeight: 600, fontSize: '0.85rem', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-                        animate={{
-                          background: practiceStatus === 'correct' ? 'rgba(0,255,136,0.2)' : practiceStatus === 'retry' ? 'rgba(255,149,0,0.2)' : 'rgba(255,255,255,0.2)',
-                          color: practiceStatus === 'correct' ? '#00FF88' : practiceStatus === 'retry' ? '#FF9500' : '#FFF',
-                          border: practiceStatus === 'correct' ? '1px solid #00FF88' : practiceStatus === 'retry' ? '1px solid #FF9500' : '1px solid rgba(255,255,255,0.3)'
-                        }}
-                      >
-                        {practiceStatus === 'correct' && <CheckCircle size={14} />}
-                        {practiceStatus === 'correct' ? 'Perfect Match' : practiceStatus === 'retry' ? 'Adjust Thumb Pos.' : 'Analyzing...'}
-                      </motion.div>
-
-                      <div style={{ position: 'absolute', width: '120px', height: '120px', border: '2px dashed rgba(255,255,255,0.5)', borderRadius: '12px' }}></div>
-                    </div>
-                  )}
+                   
+                   {!isPracticing ? (
+                     <>
+                       <h4 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Camera size={18}/> Practice Mode</h4>
+                       <ul style={{ paddingLeft: '1.25rem', marginBottom: '1.5rem', fontSize: '0.9rem', color: 'var(--color-text-muted)', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                         <li>Ensure your camera has good lighting</li>
+                         <li>Center your hands in the frame</li>
+                         <li>Mirror the instructor's stroke exactly</li>
+                       </ul>
+                       <button className="btn btn-primary w-100 glow-effect" onClick={() => setIsPracticing(true)}>Start Practice</button>
+                     </>
+                   ) : (
+                     <div style={{ position: 'relative', width: '100%', height: '180px', background: '#000', borderRadius: '12px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <img src="https://images.unsplash.com/photo-1543269866-487350d6f11e?auto=format&fit=crop&q=80&w=400" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.6 }} />
+                        
+                        {/* Simulated AI Feedback Box */}
+                        <motion.div 
+                          style={{ position: 'absolute', top: '1rem', right: '1rem', padding: '0.5rem 1rem', borderRadius: '50px', fontWeight: 600, fontSize: '0.85rem', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                          animate={{ 
+                            background: practiceStatus === 'correct' ? 'rgba(0,255,136,0.2)' : practiceStatus === 'retry' ? 'rgba(255,149,0,0.2)' : 'rgba(255,255,255,0.2)',
+                            color: practiceStatus === 'correct' ? '#00FF88' : practiceStatus === 'retry' ? '#FF9500' : '#FFF',
+                            border: practiceStatus === 'correct' ? '1px solid #00FF88' : practiceStatus === 'retry' ? '1px solid #FF9500' : '1px solid rgba(255,255,255,0.3)'
+                          }}
+                        >
+                          {practiceStatus === 'correct' && <CheckCircle size={14}/>}
+                          {practiceStatus === 'correct' ? 'Perfect Match' : practiceStatus === 'retry' ? 'Adjust Thumb Pos.' : 'Analyzing...'}
+                        </motion.div>
+                        
+                        {/* Mock Scanning Box */}
+                        <div style={{ position: 'absolute', width: '120px', height: '120px', border: '2px dashed rgba(255,255,255,0.5)', borderRadius: '12px' }}></div>
+                     </div>
+                   )}
 
                 </div>
               </div>
 
               <div style={{ padding: '1.5rem 2rem', borderTop: '1px solid var(--glass-border)', display: 'flex', justifyContent: 'space-between' }}>
-                <button className="btn btn-secondary"><SkipBack size={16} /> Previous Lesson</button>
-                <button className="btn btn-primary">Next Lesson <SkipForward size={16} /></button>
+                <button className="btn btn-secondary"><SkipBack size={16}/> Previous Lesson</button>
+                <button className="btn btn-primary">Next Lesson <SkipForward size={16}/></button>
               </div>
 
             </motion.div>
@@ -226,7 +193,7 @@ export default function Learning() {
 function CourseCard({ title, duration, progress, completed, onClick }) {
   return (
     <div className="glass-card" onClick={onClick} style={{ padding: '1.25rem', cursor: 'pointer', transition: 'transform 0.2s', position: 'relative' }}>
-      {completed && <div style={{ position: 'absolute', top: '-10px', right: '-10px', background: '#00FF88', borderRadius: '50%', padding: '4px' }}><CheckCircle color="#000" size={16} /></div>}
+      {completed && <div style={{ position: 'absolute', top: '-10px', right: '-10px', background: '#00FF88', borderRadius: '50%', padding: '4px' }}><CheckCircle color="#000" size={16}/></div>}
       <div style={{ height: '140px', background: 'rgba(0,0,0,0.05)', borderRadius: '12px', marginBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Play size={32} color="var(--color-primary)" opacity={0.5} />
       </div>

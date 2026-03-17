@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Palette, CheckCircle, Save, RotateCcw } from 'lucide-react';
-import { useNotification } from '../context/NotificationContext';
 
 export default function ThemeCustomization() {
-  const { showToast } = useNotification();
   const [activeTheme, setActiveTheme] = useState(localStorage.getItem('signsetu-theme') || 'default');
   const [accentColor, setAccentColor] = useState(localStorage.getItem('signsetu-accent') || '#DED1B6');
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
@@ -41,14 +39,12 @@ export default function ThemeCustomization() {
     
     // Dispatch custom event so App.jsx hears the change immediately without reload
     window.dispatchEvent(new Event('themeChanged'));
-    showToast('Theme preferences saved!', 'success');
   };
 
   const handleReset = () => {
     setActiveTheme('default');
     setAccentColor('#DED1B6');
     setHasUnsavedChanges(true);
-    showToast('Theme reset to defaults. Save to apply.', 'info');
   };
 
   return (

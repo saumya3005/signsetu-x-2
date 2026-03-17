@@ -1,25 +1,19 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Home, Phone, LayoutDashboard, Camera, BookOpen, Users, User, Settings, Bell, Search, Sparkles, Network } from 'lucide-react';
+import { LayoutDashboard, Camera, BookOpen, Users, User, Settings, Bell, Search, Sparkles, Network } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Chatbot from './Chatbot';
-import Footer from './Footer';
-import { useUser } from '../../context/UserContext';
 
 export default function DashboardLayout() {
-  const { user } = useUser();
   const location = useLocation();
   
   const sidebarLinks = [
-    { icon: <Home size={20}/>, label: 'Home', path: '/' },
     { icon: <LayoutDashboard size={20}/>, label: 'Dashboard', path: '/dashboard' },
     { icon: <Camera size={20}/>, label: 'Live Detection', path: '/detection' },
     { icon: <BookOpen size={20}/>, label: 'Learning', path: '/learning' },
     { icon: <Users size={20}/>, label: 'Community', path: '/community' },
     { icon: <Network size={20}/>, label: 'Friends', path: '/friends' },
     { icon: <User size={20}/>, label: 'My Profile', path: '/profile' },
-    { icon: <Sparkles size={20}/>, label: 'Subscription Plans', path: '/subscription' },
     { icon: <Settings size={20}/>, label: 'Settings', path: '/settings' },
-    { icon: <Phone size={20}/>, label: 'Contact Us', path: '/contact' },
   ];
 
   return (
@@ -56,11 +50,7 @@ export default function DashboardLayout() {
           <div className="topbar-actions">
             <button className="icon-btn"><Bell size={20} /></button>
             <div className="user-avatar">
-              <img src={user?.profileImage || 'https://i.pravatar.cc/150?img=11'} alt="User" />
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-              <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>{user?.name || 'Guest'}</span>
-              <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>Pro Member</span>
+              <img src="https://i.pravatar.cc/150?img=11" alt="User" />
             </div>
             <button className="btn btn-primary">Quick Start</button>
           </div>
@@ -78,12 +68,11 @@ export default function DashboardLayout() {
               style={{ height: '100%', width: '100%' }}
             >
               <Outlet />
+              
             </motion.div>
           </AnimatePresence>
-          <Footer />
         </div>
-      </div>
-      
+      </div>   
       <Chatbot />
     </div>
   );

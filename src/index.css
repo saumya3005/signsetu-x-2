@@ -32,12 +32,6 @@
   --border-radius-btn: 50px;
   --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   --container-width: 1200px;
-
-  /* Premium Colors */
-  --color-success: #00E676;
-  --color-info: #00B0FF;
-  --color-warning: #FFAB00;
-  --color-error: #FF5252;
 }
 
 /* Theme Accessibility Modifiers */
@@ -87,27 +81,17 @@ button { cursor: pointer; }
 
 .glass-card {
   background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
   border-radius: var(--border-radius-lg);
-  box-shadow: var(--glass-shadow), inset 0 1px 1px rgba(255, 255, 255, 0.4);
-  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
-  will-change: transform;
-  transform-style: preserve-3d;
+  box-shadow: var(--glass-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .glass-card:hover {
-  box-shadow: var(--shadow-hover), inset 0 1px 1px rgba(255, 255, 255, 0.6);
-  z-index: 10;
-}
-
-.tilt-card {
-  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
-}
-.tilt-card:hover {
-  /* JS handles dynamic rotate but fallback scale helps */
-  transform: perspective(1000px) scale3d(1.02, 1.02, 1.02);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
 }
 
 .nav-btn-hover:hover {
@@ -159,104 +143,6 @@ button { cursor: pointer; }
   box-shadow: var(--shadow-hover);
 }
 
-/* Cursor Glow Dot */
-.cursor-glow-dot {
-  position: fixed;
-  top: -15px;
-  left: -15px;
-  width: 30px;
-  height: 30px;
-  background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99999;
-  mix-blend-mode: screen;
-  transition: opacity 0.3s ease;
-  opacity: 0.6;
-}
-
-/* Toast System */
-.toast-container {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  z-index: 999999;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  pointer-events: none;
-}
-
-.toast-item {
-  pointer-events: auto;
-  min-width: 300px;
-  max-width: 400px;
-  padding: 1rem 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  border-left: 4px solid var(--color-primary);
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.toast-item.success { border-left-color: var(--color-success); }
-.toast-item.info { border-left-color: var(--color-info); }
-.toast-item.warning { border-left-color: var(--color-warning); }
-.toast-item.error { border-left-color: var(--color-error); }
-
-.toast-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.toast-content {
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--color-text-main);
-}
-
-/* Background Shapes */
-.bg-blob {
-  position: fixed;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  filter: blur(80px);
-  z-index: -1;
-  opacity: 0.15;
-  pointer-events: none;
-  animation: float-slow 20s infinite ease-in-out;
-}
-
-@keyframes float-slow {
-  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
-  33% { transform: translate(100px, 50px) rotate(120deg) scale(1.1); }
-  66% { transform: translate(-50px, 100px) rotate(240deg) scale(0.9); }
-}
-
-/* Gradient Borders */
-.gradient-border {
-  position: relative;
-  background: var(--glass-bg);
-  background-clip: padding-box;
-  border: 4px solid transparent;
-}
-
-.gradient-border::before {
-  content: '';
-  position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
-  z-index: -1;
-  margin: -4px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary), var(--color-accent));
-}
-
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -268,81 +154,40 @@ button { cursor: pointer; }
 
 /* === GLOBAL UI COMPONENTS === */
 .btn {
-  padding: 0.75rem 1.75rem;
+  padding: 0.75rem 1.5rem;
   border-radius: var(--border-radius-btn);
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   border: none;
   font-size: 1rem;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.btn::after {
-  content: '';
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 0; height: 0;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.4s, height 0.4s;
-  z-index: -1;
-}
-
-.btn:active::after {
-  width: 300px; height: 300px;
-  background: rgba(255, 255, 255, 0);
-  transition: 0s;
 }
 
 .btn-primary {
   background: var(--color-primary);
   color: var(--color-bg);
-  box-shadow: 0 4px 15px rgba(79, 62, 52, 0.15);
 }
 .btn-primary:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 25px rgba(79, 62, 52, 0.3);
-}
-.btn-primary:active {
-  transform: translateY(1px) scale(0.98);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(79, 62, 52, 0.3);
 }
 
 .btn-secondary {
   background: transparent;
   color: var(--color-text-main);
   border: 1px solid var(--glass-border);
-  backdrop-filter: blur(4px);
 }
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.4);
-  transform: translateY(-3px) scale(1.02);
-  border-color: var(--color-primary);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-}
-.btn-secondary:active {
-  transform: translateY(1px) scale(0.98);
+  background: rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
 }
 
 .glow-effect:hover {
-  box-shadow: 0 0 25px var(--color-accent), 0 10px 25px rgba(79, 62, 52, 0.3);
+  box-shadow: 0 0 20px var(--color-accent);
 }
-
-.glow-effect-hover {
-  transition: all 0.3s ease;
-}
-.glow-effect-hover:hover {
-  color: var(--color-accent);
-  transform: scale(1.1) translateY(-2px);
-  filter: drop-shadow(0 0 8px var(--color-accent));
-}
-
 .btn-glass { background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); color: var(--color-primary); border: 1px solid var(--glass-border); }
 .w-100 { width: 100%; display: flex; justify-content: center; }
 

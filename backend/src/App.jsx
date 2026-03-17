@@ -77,7 +77,11 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         {/* Authenticated Dashboard Layout */}
-        <Route element={<DashboardLayout />}>
+        <Route element={
+  <ProtectedRoute>
+    <DashboardLayout />
+  </ProtectedRoute>
+}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/detection" element={<LiveDetection />} />
           <Route path="/learning" element={<Learning />} />
