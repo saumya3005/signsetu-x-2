@@ -19,21 +19,66 @@ export default function Chatbot() {
     scrollToBottom();
   }, [messages, isTyping]);
 
-  const handleSend = () => {
-    if (!inputText.trim()) return;
+  const callGeminiAPI = async (userMessage, history) => {
+    const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+    if (!API_KEY) {
+      console.error("Gemini API Key missing!");
+      return "Something went wrong. Please check the API configuration.";
+    }
 
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
+    // Format history for Gemini (limited to last 10 for context)
+    const contents = history.slice(-10).map(msg => ({
+      role: msg.sender === 'user' ? 'user' : 'model',
+      parts: [{ text: msg.text }]
+    }));
+
+    // Add current message
+    contents.push({
+      role: 'user',
+      parts: [{ text: userMessage }]
+    });
+
+    const systemPrompt = "You are SignSetu AI, a friendly and helpful assistant for a sign language learning and detection platform. Your goal is to help users learn sign language, understand the platform's features (Live Detection, Learning, Community, Friends), and provide clear, conversational guidance. Keep responses structured and slightly conversational.";
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents,
+          systemInstruction: { parts: [{ text: systemPrompt }] }
+        })
+      });
+
+      const data = await response.json();
+      if (data.candidates && data.candidates[0].content.parts[0].text) {
+        return data.candidates[0].content.parts[0].text;
+      }
+      throw new Error("Invalid API response");
+    } catch (error) {
+      console.error("Gemini API Error:", error);
+      return "Something went wrong. Please try again.";
+    }
+  };
+
+  const handleSend = async () => {
+    if (!inputText.trim() || isTyping) return;
+
+    const currentInput = inputText;
     // Add User Message
-    const userMsg = { id: Date.now(), sender: 'user', text: inputText };
+    const userMsg = { id: Date.now(), sender: 'user', text: currentInput };
     setMessages(prev => [...prev, userMsg]);
     setInputText("");
     setIsTyping(true);
 
-    // Mock AI Response
-    setTimeout(() => {
-      setIsTyping(false);
-      const botMsg = { id: Date.now() + 1, sender: 'bot', text: "That's a great question! I can help you practice that gesture. Opening the learning module now..." };
-      setMessages(prev => [...prev, botMsg]);
-    }, 1500);
+    // Call Gemini API
+    const botReply = await callGeminiAPI(currentInput, messages);
+
+    setIsTyping(false);
+    const botMsg = { id: Date.now() + 1, sender: 'bot', text: botReply };
+    setMessages(prev => [...prev, botMsg]);
   };
 
   const handleSuggestion = (text) => {
@@ -48,7 +93,7 @@ export default function Chatbot() {
     <>
       <AnimatePresence>
         {!isOpen && (
-           <motion.button
+          <motion.button
             className="chatbot-fab pulse glow-effect"
             onClick={() => setIsOpen(true)}
             initial={{ scale: 0, opacity: 0 }}
@@ -91,8 +136,8 @@ export default function Chatbot() {
             {/* Chat Map Container */}
             <div className="chatbot-messages hide-scrollbar">
               {messages.map((msg) => (
-                <motion.div 
-                  key={msg.id} 
+                <motion.div
+                  key={msg.id}
                   className={`chat-bubble ${msg.sender === 'ai' || msg.sender === 'bot' ? 'bubble-ai' : 'bubble-user'}`}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -115,7 +160,7 @@ export default function Chatbot() {
 
             {/* Suggestions */}
             {messages.length < 3 && !isTyping && (
-              <motion.div className="chatbot-suggestions" initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.5 }}}>
+              <motion.div className="chatbot-suggestions" initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.5 } }}>
                 <button className="suggestion-chip" onClick={() => handleSuggestion("Learn basic sign language")}>Learn basic sign language</button>
                 <button className="suggestion-chip" onClick={() => handleSuggestion("Start live detection")}>Start live detection</button>
                 <button className="suggestion-chip" onClick={() => handleSuggestion("Open learning courses")}>Open learning courses</button>
@@ -127,17 +172,17 @@ export default function Chatbot() {
             <div className="chatbot-input">
               <div className="input-wrapper">
                 <button className="icon-btn hover-lift"><ImageIcon size={18} /></button>
-                <input 
-                  type="text" 
-                  placeholder="Type your message..." 
+                <input
+                  type="text"
+                  placeholder="Type your message..."
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   onKeyDown={preventSubmit}
                 />
                 <button className="icon-btn hover-lift"><Mic size={18} /></button>
               </div>
-              <button 
-                className="send-btn" 
+              <button
+                className="send-btn"
                 onClick={handleSend}
                 disabled={!inputText.trim()}
               >
