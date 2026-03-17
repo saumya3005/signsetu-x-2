@@ -3,8 +3,10 @@ import { Home, Phone, LayoutDashboard, Camera, BookOpen, Users, User, Settings, 
 import { AnimatePresence, motion } from 'framer-motion';
 import Chatbot from './Chatbot';
 import Footer from './Footer';
+import { useUser } from '../../context/UserContext';
 
 export default function DashboardLayout() {
+  const { user } = useUser();
   const location = useLocation();
   
   const sidebarLinks = [
@@ -54,7 +56,11 @@ export default function DashboardLayout() {
           <div className="topbar-actions">
             <button className="icon-btn"><Bell size={20} /></button>
             <div className="user-avatar">
-              <img src="https://i.pravatar.cc/150?img=11" alt="User" />
+              <img src={user?.profileImage || 'https://i.pravatar.cc/150?img=11'} alt="User" />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: 700 }}>{user?.name || 'Guest'}</span>
+              <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>Pro Member</span>
             </div>
             <button className="btn btn-primary">Quick Start</button>
           </div>
