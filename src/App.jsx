@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import MainLayout from './components/layout/MainLayout';
 import DashboardLayout from './components/layout/DashboardLayout';
 import { NotificationProvider, useNotification } from './context/NotificationContext';
+import { UserProvider } from './context/UserContext';
 
 // Pages
 import Home from './pages/Home';
@@ -133,6 +134,7 @@ function App() {
   }, []);
 
   return (
+    <UserProvider>
     <NotificationProvider>
       <Router>
         {/* Global Floating Shapes for Premium UI */}
@@ -151,6 +153,7 @@ function App() {
 
         {/* Auth Layout (No Navbar/Footer) */}
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Login />} />
 
         {/* Authenticated Dashboard Layout */}
         <Route element={<DashboardLayout />}>
@@ -166,8 +169,9 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
         </Route>
       </Routes>
-    </Router>
+      </Router>
     </NotificationProvider>
+    </UserProvider>
   );
 }
 

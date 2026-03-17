@@ -25,13 +25,13 @@ export default function Home() {
       {/* 2. Hero Section */}
       <section className="hero-section">
         <div className="container center-hero">
-          <motion.h1 
+          <motion.h1
             initial="hidden" animate="visible" variants={fadeInRules}
             className="text-gradient"
           >
             Breaking Communication Barriers with AI
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial="hidden" animate="visible" variants={fadeInRules}
             className="hero-subtitle"
           >
@@ -51,7 +51,7 @@ export default function Home() {
       {/* 3. Core Features */}
       <section className="features-section section">
         <div className="container">
-          <motion.h2 initial="hidden" whileInView="visible" viewport={{ once:true }} variants={fadeInRules}>
+          <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInRules}>
             Core Features
           </motion.h2>
           <div className="features-grid">
@@ -66,38 +66,38 @@ export default function Home() {
       {/* NEW: About SignSetu */}
       <section id="about" className="about-section section bg-alt">
         <div className="container">
-          <motion.div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 4rem auto' }} initial="hidden" whileInView="visible" viewport={{ once:true }} variants={fadeInRules}>
+          <motion.div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 4rem auto' }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInRules}>
             <h2>About SignSetu</h2>
             <p style={{ fontSize: '1.2rem', color: 'var(--color-text-muted)', lineHeight: '1.8' }}>
-              SignSetu is an AI-powered platform helping deaf and mute individuals communicate using state-of-the-art sign language detection, 
+              SignSetu is an AI-powered platform helping deaf and mute individuals communicate using state-of-the-art sign language detection,
               interactive learning modules, and real-time community interaction. Our mission is to break global communication barriers.
             </p>
           </motion.div>
 
-          <motion.h3 style={{ textAlign: 'center', marginBottom: '3rem' }} initial="hidden" whileInView="visible" viewport={{ once:true }} variants={fadeInRules}>
+          <motion.h3 style={{ textAlign: 'center', marginBottom: '3rem' }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInRules}>
             Developers
           </motion.h3>
-          
+
           <div className="features-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
-            <DeveloperCard 
-              name="Alex Developer" 
-              role="AI Developer" 
-              img="https://i.pravatar.cc/150?img=11"
+            <DeveloperCard
+              name="Ayush Tiwari"
+              role="AI Developer"
+              img="https://i.postimg.cc/Nfh3bbdn/ayushsignsetu.jpg"
             />
-            <DeveloperCard 
-              name="Sam Frontend" 
-              role="Frontend Developer" 
-              img="https://i.pravatar.cc/150?img=12"
+            <DeveloperCard
+              name="Saumya Agrahari"
+              role="Frontend Developer"
+              img="https://i.postimg.cc/Hkv3vkpp/somi1.jpg"
             />
-            <DeveloperCard 
-              name="Jordan Backend" 
-              role="Backend Developer" 
-              img="https://i.pravatar.cc/150?img=13"
+            <DeveloperCard
+              name="Unnati Kesarwani"
+              role="Backend Developer"
+              img="https://i.postimg.cc/htmbsb5F/badtameez.jpg"
             />
-            <DeveloperCard 
-              name="Taylor Design" 
-              role="UI/UX Designer" 
-              img="https://i.pravatar.cc/150?img=14"
+            <DeveloperCard
+              name="Anshuman Rai"
+              role="UI/UX Designer"
+              img="https://i.postimg.cc/BbdPPR3z/hanger.jpg"
             />
           </div>
         </div>
@@ -106,7 +106,7 @@ export default function Home() {
       {/* 4. Learning Preview (Netflix/Coursera style) */}
       <section className="learning-preview section bg-alt">
         <div className="container">
-          <motion.h2 initial="hidden" whileInView="visible" viewport={{ once:true }} variants={fadeInRules}>
+          <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInRules}>
             Start Learning
           </motion.h2>
           <div className="horizontal-scroll">
@@ -121,7 +121,7 @@ export default function Home() {
       {/* 5. Community Preview */}
       <section className="community-preview section">
         <div className="container">
-          <motion.h2 initial="hidden" whileInView="visible" viewport={{ once:true }} variants={fadeInRules}>
+          <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInRules}>
             Community Activity
           </motion.h2>
           <div className="community-grid">
@@ -141,7 +141,7 @@ export default function Home() {
       {/* 6. AI Technology Section */}
       <section className="ai-tech section bg-primary text-white">
         <div className="container">
-          <motion.h2 initial="hidden" whileInView="visible" viewport={{ once:true }} variants={fadeInRules} className="text-white">
+          <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInRules} className="text-white">
             Powered by Next-Gen AI
           </motion.h2>
           <div className="features-grid">
@@ -182,13 +182,13 @@ function FeatureCard({ icon, title, desc, dark }) {
 function CourseCard({ title, level, duration, progress }) {
   return (
     <motion.div className="glass-card course-card-mini" whileHover={{ scale: 1.05 }} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={fadeInRules}>
-      <div className="course-thumb"><Play size={24} color="#FFF" className="animate-float" style={{ animationDuration: '4s' }}/></div>
+      <div className="course-thumb"><Play size={24} color="#FFF" className="animate-float" style={{ animationDuration: '4s' }} /></div>
       <h4>{title}</h4>
       <div className="course-meta">
         <span>{level}</span> • <span>{duration}</span>
       </div>
       <div className="progress-bar-container">
-        <div className="progress-bar"><div className="progress-fill" style={{width: `${progress}%`}}></div></div>
+        <div className="progress-bar"><div className="progress-fill" style={{ width: `${progress}%` }}></div></div>
       </div>
     </motion.div>
   );
@@ -200,7 +200,7 @@ function DeveloperCard({ name, role, img }) {
       <img src={img} alt={name} style={{ width: '100px', height: '100px', borderRadius: '50%', marginBottom: '1rem', border: '3px solid var(--color-primary)', objectFit: 'cover' }} />
       <h4 style={{ margin: '0 0 0.5rem 0' }}>{name}</h4>
       <p style={{ margin: '0 0 1.5rem 0', color: 'var(--color-primary)', fontSize: '0.9rem', fontWeight: 600 }}>{role}</p>
-      
+
       <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
         <a href="#" className="social-icon-btn glow-effect-hover"><Instagram size={20} /></a>
         <a href="#" className="social-icon-btn glow-effect-hover"><Github size={20} /></a>

@@ -10,7 +10,8 @@ export default function Learning() {
 
   const lessonVideos = {
     "Alphabet Mastery": "https://www.youtube.com/embed/6_gXiBe9y9A?si=TNSFy6e8ptDd3wXN",
-    "Numbers 1-100": "https://www.youtube.com/embed/Y4stD_ypaAI?si=9lCN94tugJrKnMtL"
+    "Numbers 1-100": "https://www.youtube.com/embed/Y4stD_ypaAI?si=9lCN94tugJrKnMtL",
+    "Basic Colors": "https://www.youtube.com/embed/U9KnRdcWL7Y?si=u4WAd52uZpAp_9aq&start=21"
   };
 
   // Simulate Practice AI Feedback

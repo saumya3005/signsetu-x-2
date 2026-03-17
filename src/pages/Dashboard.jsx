@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import { Camera, TrendingUp, Users, BookOpen, Star, PlayCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
 
 export default function Dashboard() {
+  const { user } = useUser();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
@@ -22,7 +24,7 @@ export default function Dashboard() {
       style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '1.5rem' }}
     >
       <div style={{ gridColumn: 'span 12', marginBottom: '1rem' }}>
-        <h2>Welcome back, Alex! 👋</h2>
+        <h2>Welcome back, {user?.name.split(' ')[0] || 'Learner'}! 👋</h2>
         <p style={{ color: 'var(--color-text-muted)' }}>You've learned 14 new signs this week. Keep up the great progress.</p>
       </div>
 
